@@ -497,3 +497,14 @@ html[data-theme="light"] .contact-actions {
   /* Caption remains equal in size to the card metadata on small screens. */
   .architecture-hub .hub-core-caption { font-size: var(--box-meta-size); }
 }
+
+
+/* Energy Portfolio Intelligence source-code links (Version 43).
+   The links apply to this one project; other cases retain their original layout. */
+.project-action-links{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.project-source-link{font:600 11px var(--font-body);color:var(--acid);text-decoration:none;white-space:nowrap}
+.project-source-link:hover,.modal-github-link:hover{text-decoration:underline;text-underline-offset:3px}
+.project-source-link:focus-visible,.modal-github-link:focus-visible{outline:2px solid var(--acid);outline-offset:4px;border-radius:3px}
+.modal-footer-links{display:flex;align-items:center;flex-wrap:wrap;gap:14px 25px}
+.modal-footer{flex-wrap:wrap}
+@media(max-width:450px){.project-action-links{gap:7px}.project-source-link{font-size:10px}}

@@ -35,7 +35,7 @@ const projects = [
     note:'This project describes internship work and architecture; it is not presented as a public live demo.'
   },
   {
-    id: 'energy-intelligence', order: '03', category: 'data', categoryLabel: 'BACKEND / ANALYTICS', year: '2026', phase: 'Independent portfolio project · Scenario model',
+    id: 'energy-intelligence', repoUrl: 'https://github.com/nikita25-code/property-energy-intelligence', order: '03', category: 'data', categoryLabel: 'BACKEND / ANALYTICS', year: '2026', phase: 'Independent portfolio project · Scenario model',
     title: 'Energy Portfolio Intelligence',
     summary: 'A Python analytics API for prioritising building retrofits, exploring component-level costs and turning a synthetic property portfolio into decision-ready views.',
     tags: ['FastAPI', 'Python', 'Analytics'], visual: 'energy', visualLabel: 'ENERGY / DECISION SUPPORT', visualBg: '#14282c',
@@ -112,7 +112,8 @@ function renderProjects() {
         <div class="project-meta"><span>${p.categoryLabel}</span><span class="meta-divider">/</span><span class="project-phase">${p.year} · ${p.phase}</span></div>
         <h3>${p.title}</h3><p>${p.summary}</p>
         <div class="project-bottom"><div class="project-tags">${p.tags.map(t => `<span>${t}</span>`).join('')}</div>
-          <button class="project-open" type="button" data-open-project="${p.id}" aria-label="Read case study: ${p.title}" title="Read case study">↗</button>
+          <div class="project-action-links">${p.repoUrl ? `<a class="project-source-link" href="${p.repoUrl}" target="_blank" rel="noopener noreferrer" aria-label="View ${p.title} source code on GitHub">GitHub ↗</a>` : ''}
+          <button class="project-open" type="button" data-open-project="${p.id}" aria-label="Read case study: ${p.title}" title="Read case study">↗</button></div>
         </div>
       </div>
     </article>`).join('');
@@ -154,7 +155,7 @@ function openProject(id) {
     <h3>Outcome</h3><p>${p.result}</p>
     <h3>Technologies & methods</h3><div class="modal-stack">${p.technologies.map(t=>`<span>${t}</span>`).join('')}</div>
     <div class="modal-note">${p.note}</div>
-    <div class="modal-footer"><a href="mailto:nikita_seiler@outlook.com?subject=${encodeURIComponent('Question about ' + p.title)}">Ask me about this project ↗</a><button type="button" data-close-modal>← Back to projects</button></div>`;
+    <div class="modal-footer"><div class="modal-footer-links">${p.repoUrl ? `<a class="modal-github-link" href="${p.repoUrl}" target="_blank" rel="noopener noreferrer">View source on GitHub ↗</a>` : ''}<a href="mailto:nikita_seiler@outlook.com?subject=${encodeURIComponent('Question about ' + p.title)}">Ask me about this project ↗</a></div><button type="button" data-close-modal>← Back to projects</button></div>`;
   modal.hidden = false;
   document.body.classList.add('modal-open');
   panel.scrollTop = 0;
