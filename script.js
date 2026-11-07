@@ -129,18 +129,18 @@ function renderScreenshotCard(p) {
 
 function renderCaseGallery(p) {
   if (!p.screenshots?.length) return '';
-  const first = p.screenshots[0];
+  const first = p.screenshots[Number(p.activeScreenshotIndex || 0) % p.screenshots.length];
   return `<section class="case-gallery" data-case-gallery aria-label="Screenshots from the ${p.title} application">
-    <div class="case-gallery-heading"><h3>Inside the application</h3><span>REAL INTERFACE · SYNTHETIC DATA</span></div>
-    <a class="case-gallery-main" data-gallery-open href="${first.url}" target="_blank" rel="noopener noreferrer" aria-label="Open full-size screenshot: ${first.title}">
+    <div class="case-gallery-heading"><h3>Inside the application</h3></div>
+    <div class="case-gallery-stage">
+      <a class="case-gallery-main" data-gallery-open href="${first.url}" target="_blank" rel="noopener noreferrer" aria-label="Open full-size screenshot: ${first.title}">
       <img data-gallery-image src="${first.url}" alt="${first.title}" loading="lazy" decoding="async" />
       <span>View full screenshot ↗</span>
-    </a>
-    <div class="case-gallery-details"><div><strong data-gallery-title>${first.title}</strong><p data-gallery-description>${first.description}</p></div>
-      <div class="case-gallery-nav"><button type="button" data-gallery-step="-1" aria-label="Previous screenshot">←</button><span data-gallery-counter>01 / 03</span><button type="button" data-gallery-step="1" aria-label="Next screenshot">→</button></div>
+      </a>
+      <button class="case-gallery-arrow case-gallery-arrow-prev" type="button" data-gallery-step="-1" aria-label="Previous screenshot" title="Previous screenshot"><span aria-hidden="true">←</span></button>
+      <button class="case-gallery-arrow case-gallery-arrow-next" type="button" data-gallery-step="1" aria-label="Next screenshot" title="Next screenshot"><span aria-hidden="true">→</span></button>
     </div>
-    <div class="case-gallery-thumbs" role="group" aria-label="Choose an application screenshot">
-      ${p.screenshots.map((shot, i) => `<button type="button" class="case-gallery-thumb" data-gallery-index="${i}" aria-pressed="${i === 0}" aria-label="Show ${shot.title}"><img src="${shot.url}" alt="" loading="lazy" decoding="async"/><span>${shot.title}</span></button>`).join('')}
+    <div class="case-gallery-details"><div><strong data-gallery-title>${first.title}</strong><p data-gallery-description>${first.description}</p></div>
     </div>
   </section>`;
 }
@@ -148,7 +148,7 @@ function renderCaseGallery(p) {
 function bindCaseGallery(p) {
   const gallery = modalContent.querySelector('[data-case-gallery]');
   if (!gallery || !p.screenshots) return;
-  let index = 0;
+  let index = Number(p.activeScreenshotIndex || 0) % p.screenshots.length;
   const change = next => {
     index = (next + p.screenshots.length) % p.screenshots.length;
     const slide = p.screenshots[index];
@@ -159,14 +159,24 @@ function bindCaseGallery(p) {
     gallery.querySelector('[data-gallery-description]').textContent = slide.description;
     gallery.querySelector('[data-gallery-open]').href = slide.url;
     gallery.querySelector('[data-gallery-open]').setAttribute('aria-label', `Open full-size screenshot: ${slide.title}`);
-    gallery.querySelector('[data-gallery-counter]').textContent = `${String(index + 1).padStart(2, '0')} / ${String(p.screenshots.length).padStart(2, '0')}`;
-    gallery.querySelectorAll('[data-gallery-index]').forEach(btn => btn.setAttribute('aria-pressed', String(Number(btn.dataset.galleryIndex) === index)));
+    // Keep the overview card and case study on the same selected screenshot.
+    p.activeScreenshotIndex = index;
+    const cardGallery = document.querySelector('[data-project="energy-intelligence"] [data-card-gallery]');
+    if (cardGallery) {
+      cardGallery.dataset.cardIndex = String(index);
+      const cardImage = cardGallery.querySelector('.energy-card-image');
+      if (cardImage) { cardImage.src = slide.url; cardImage.alt = p.title + ': ' + slide.title; }
+      const nextButton = cardGallery.querySelector('[data-energy-card-next]');
+      if (nextButton) {
+        const upcoming = p.screenshots[(index + 1) % p.screenshots.length];
+        nextButton.setAttribute('aria-label', 'Show next screenshot: ' + upcoming.title);
+        nextButton.title = 'Next screenshot: ' + upcoming.title;
+      }
+    }
   };
   gallery.addEventListener('click', event => {
-    const thumb = event.target.closest('[data-gallery-index]');
     const step = event.target.closest('[data-gallery-step]');
-    if (thumb) change(Number(thumb.dataset.galleryIndex));
-    else if (step) change(index + Number(step.dataset.galleryStep));
+    if (step) change(index + Number(step.dataset.galleryStep));
   });
 }
 
@@ -203,6 +213,8 @@ projectGrid.addEventListener('click', event => {
   img.src = shot.url;
   img.alt = `Energy Portfolio Intelligence: ${shot.title}`;
   gallery.dataset.cardIndex = String(index);
+  const project = projects.find(p => p.id === 'energy-intelligence');
+  if (project) project.activeScreenshotIndex = index;
   const upcoming = energyScreenshots[(index + 1) % energyScreenshots.length];
   nextButton.setAttribute('aria-label', `Show next screenshot: ${upcoming.title}`);
   nextButton.title = `Next screenshot: ${upcoming.title}`;
