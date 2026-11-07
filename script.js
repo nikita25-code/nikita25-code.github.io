@@ -116,11 +116,14 @@ const visuals = {
 // The Energy case study uses genuine app screenshots stored in its public source repository.
 function renderScreenshotCard(p) {
   const first = p.screenshots[0];
-  return `<div class="energy-card-media" data-card-gallery>
+  const next = p.screenshots[1] || first;
+  return `<div class="energy-card-media" data-card-gallery data-card-index="0">
     <img class="energy-card-image" src="${first.url}" alt="${p.title}: ${first.title}" loading="lazy" decoding="async" />
     <div class="energy-card-caption"><span>ACTUAL APPLICATION PREVIEW</span><strong data-card-gallery-title>${first.title}</strong></div>
-    <div class="energy-card-controls" role="group" aria-label="Energy project screenshots">
-      ${p.screenshots.map((shot, i) => `<button type="button" data-energy-card-slide="${i}" aria-pressed="${i === 0}" aria-label="Show ${shot.title}" title="${shot.title}">${String(i + 1).padStart(2, '0')}</button>`).join('')}
+    <div class="energy-card-controls">
+      <button type="button" class="energy-card-next" data-energy-card-next aria-label="Show next screenshot: ${next.title}" title="Next screenshot">
+        <span aria-hidden="true">→</span>
+      </button>
     </div>
   </div>`;
 }
@@ -187,20 +190,24 @@ function renderProjects() {
   observeReveals();
 }
 
-// Card screenshot selectors only affect Energy Portfolio Intelligence.
+// Energy Portfolio Intelligence card: circular next-arrow control.
 projectGrid.addEventListener('click', event => {
-  const btn = event.target.closest('[data-energy-card-slide]');
-  if (!btn) return;
-  const card = btn.closest('[data-project="energy-intelligence"]');
-  if (!card) return;
-  const index = Number(btn.dataset.energyCardSlide);
+  const nextButton = event.target.closest('[data-energy-card-next]');
+  if (!nextButton) return;
+  const card = nextButton.closest('[data-project="energy-intelligence"]');
+  const gallery = nextButton.closest('[data-card-gallery]');
+  if (!card || !gallery) return;
+  const currentIndex = Number(gallery.dataset.cardIndex || 0);
+  const index = (currentIndex + 1) % energyScreenshots.length;
   const shot = energyScreenshots[index];
-  if (!shot) return;
   const img = card.querySelector('.energy-card-image');
   img.src = shot.url;
   img.alt = `Energy Portfolio Intelligence: ${shot.title}`;
   card.querySelector('[data-card-gallery-title]').textContent = shot.title;
-  card.querySelectorAll('[data-energy-card-slide]').forEach(b => b.setAttribute('aria-pressed', String(Number(b.dataset.energyCardSlide) === index)));
+  gallery.dataset.cardIndex = String(index);
+  const upcoming = energyScreenshots[(index + 1) % energyScreenshots.length];
+  nextButton.setAttribute('aria-label', `Show next screenshot: ${upcoming.title}`);
+  nextButton.title = `Next screenshot: ${upcoming.title}`;
 });
 
 // Project filters
