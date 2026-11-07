@@ -513,11 +513,8 @@ html[data-theme="light"] .contact-actions {
 /* ========================================================================
    V44 · REAL ENERGY INTELLIGENCE SCREENSHOTS & ACCESSIBLE CASE GALLERY
    ======================================================================== */
-.energy-card-media{position:absolute;inset:0;display:grid;place-items:center;padding:15px 17px 49px;background:radial-gradient(circle at 50% 30%,#24434a,#101b24 78%)}
+.energy-card-media{position:absolute;inset:0;display:grid;place-items:center;padding:15px 17px;background:radial-gradient(circle at 50% 30%,#24434a,#101b24 78%)}
 .energy-card-image{display:block;width:100%;height:100%;object-fit:contain;object-position:center center;border:1px solid rgba(194,225,211,.19);border-radius:9px;background:#101c2b;box-shadow:0 7px 21px rgba(0,0,0,.32)}
-.energy-card-caption{position:absolute;left:18px;bottom:12px;display:flex;flex-direction:column;gap:3px;max-width:65%;color:#e5f8ed}
-.energy-card-caption span{font:8px var(--font-mono);letter-spacing:.8px;color:#badfcb}
-.energy-card-caption strong{font:600 11px var(--font-display);letter-spacing:-.1px}
 .energy-card-controls{position:absolute;right:16px;bottom:14px;display:flex;align-items:center;justify-content:center}
 .energy-card-next{width:38px;height:38px;border:1px solid rgba(186,223,203,.52);border-radius:50%;background:rgba(11,19,26,.42);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);color:#f2fff6;display:grid;place-items:center;cursor:pointer;box-shadow:0 8px 18px rgba(0,0,0,.26);transition:transform .18s ease,background .18s ease,border-color .18s ease}
 .energy-card-next span{font:600 17px/1 var(--font-display);transform:translateX(.5px)}
@@ -544,5 +541,5 @@ html[data-theme="light"] .contact-actions {
 .case-gallery-thumb img{display:block;width:100%;height:76px;object-fit:contain;background:#0f1923;border-radius:4px}
 .case-gallery-thumb span{display:block;padding:7px 3px 2px;font:10px/1.4 var(--font-mono);color:var(--ink)}
 .case-gallery-thumb:focus-visible,.case-gallery-nav button:focus-visible{outline:2px solid var(--acid);outline-offset:2px}
-@media(max-width:700px){.energy-card-media{padding:12px 12px 47px}.energy-card-next{width:34px;height:34px}.case-gallery{padding:11px}.case-gallery-details{align-items:flex-start;flex-direction:column;gap:12px}.case-gallery-thumb img{height:55px}.case-gallery-thumb span{font-size:8px}.case-gallery-heading span{font-size:8px}}
-@media(max-width:360px){.energy-card-caption span{font-size:7px}.energy-card-caption strong{font-size:10px}.energy-card-next{width:31px;height:31px}.energy-card-next span{font-size:14px}.case-gallery-thumbs{gap:5px}}
+@media(max-width:700px){.energy-card-media{padding:12px}.energy-card-next{width:34px;height:34px}.case-gallery{padding:11px}.case-gallery-details{align-items:flex-start;flex-direction:column;gap:12px}.case-gallery-thumb img{height:55px}.case-gallery-thumb span{font-size:8px}.case-gallery-heading span{font-size:8px}}
+@media(max-width:360px){.energy-card-next{width:31px;height:31px}.energy-card-next span{font-size:14px}.case-gallery-thumbs{gap:5px}}
