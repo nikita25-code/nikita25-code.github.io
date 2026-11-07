@@ -6,9 +6,9 @@
  */
 
 const energyScreenshots = [
-  { url: 'https://raw.githubusercontent.com/nikita25-code/property-energy-intelligence/main/docs/dashboard-preview.png', title: 'Portfolio dashboard', description: 'Validated portfolio KPIs, energy ratings, scenario cost breakdowns and priority watchlist.' },
+  { url: 'https://raw.githubusercontent.com/nikita25-code/property-energy-intelligence/main/docs/dashboard-preview.png?v=20261107', title: 'Portfolio dashboard', description: 'Validated portfolio KPIs, energy ratings, scenario cost breakdowns and priority watchlist.' },
   { url: 'https://raw.githubusercontent.com/nikita25-code/property-energy-intelligence/main/docs/assets-preview.png', title: 'Asset-level explorer', description: 'Building and component details, assessment evidence and modelled intervention costs.' },
-  { url: 'https://raw.githubusercontent.com/nikita25-code/property-energy-intelligence/main/docs/roadmap-preview.png', title: '2030 investment roadmap', description: 'Annual budget scenarios, prioritised interventions and transparent planning assumptions.' }
+  { url: 'https://raw.githubusercontent.com/nikita25-code/property-energy-intelligence/main/docs/roadmap-preview.png?v=20261107', title: '2030 investment roadmap', description: 'Annual budget scenarios, prioritised interventions and transparent planning assumptions.' }
 ];
 
 const projects = [
