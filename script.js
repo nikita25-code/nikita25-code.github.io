@@ -5,6 +5,12 @@
  * Edit the projects array below to update project copy, tags and case studies.
  */
 
+const energyScreenshots = [
+  { url: 'https://raw.githubusercontent.com/nikita25-code/property-energy-intelligence/main/docs/dashboard-preview.png', title: 'Portfolio dashboard', description: 'Validated portfolio KPIs, energy ratings, scenario cost breakdowns and priority watchlist.' },
+  { url: 'https://raw.githubusercontent.com/nikita25-code/property-energy-intelligence/main/docs/assets-preview.png', title: 'Asset-level explorer', description: 'Building and component details, assessment evidence and modelled intervention costs.' },
+  { url: 'https://raw.githubusercontent.com/nikita25-code/property-energy-intelligence/main/docs/roadmap-preview.png', title: '2030 investment roadmap', description: 'Annual budget scenarios, prioritised interventions and transparent planning assumptions.' }
+];
+
 const projects = [
   {
     id: 'enterprise-ai-agent', order: '01', category: 'ai', categoryLabel: 'AI / AGENTS', year: '2026', phase: 'Functional prototype · SAP Denmark',
@@ -35,18 +41,24 @@ const projects = [
     note:'This project describes internship work and architecture; it is not presented as a public live demo.'
   },
   {
-    id: 'energy-intelligence', repoUrl: 'https://github.com/nikita25-code/property-energy-intelligence', order: '03', category: 'data', categoryLabel: 'BACKEND / ANALYTICS', year: '2026', phase: 'Independent portfolio project · Scenario model',
+    id: 'energy-intelligence', repoUrl: 'https://github.com/nikita25-code/property-energy-intelligence', order: '03', category: 'data', categoryLabel: 'BACKEND / ANALYTICS', year: '2026', phase: 'Independent project · Interactive scenario platform',
     title: 'Energy Portfolio Intelligence',
-    summary: 'A Python analytics API for prioritising building retrofits, exploring component-level costs and turning a synthetic property portfolio into decision-ready views.',
-    tags: ['FastAPI', 'Python', 'Analytics'], visual: 'energy', visualLabel: 'ENERGY / DECISION SUPPORT', visualBg: '#14282c',
+    summary: 'An interactive, FastAPI-backed property analytics platform for exploring asset condition, modelling retrofit investments and prioritising energy upgrades using synthetic data.',
+    tags: ['FastAPI', 'Python', 'Scenario planning'], visual: 'energy', visualLabel: 'ENERGY / DECISION SUPPORT', visualBg: '#14282c', screenshots: energyScreenshots,
     eyebrow: 'INDEPENDENT PROJECT / PROPERTY ANALYTICS',
-    overview: 'A portfolio analytics backend that exposes structured summaries and retrofit prioritisation insights through documented API endpoints. It is designed to demonstrate how financial and operational scenarios can support portfolio decisions.',
-    challenge: 'Property portfolios contain heterogeneous information. Decision-makers need consistent assumptions, accessible APIs and ways to compare the scale and impact of potential interventions.',
-    actions: ['Developed a FastAPI backend with a health endpoint and portfolio analytics summary.', 'Modelled properties and building components, including energy ratings, estimated costs and high-priority flags.', 'Exposed aggregate metrics such as portfolio retrofit estimates and component counts.', 'Kept data origin, scenario year and the assumption-based cost model explicit in API responses.'],
-    result: 'An API-backed synthetic portfolio with 5,975 properties and 23,811 modelled components, ready to support an interactive frontend and further analysis.',
-    technologies: ['Python', 'FastAPI', 'REST', 'Data modelling', 'Scenario analytics', 'Validation'],
-    stats: [{value:'5,975',label:'Synthetic properties'},{value:'23,811',label:'Modelled components'},{value:'2026',label:'Scenario year'}],
-    note:'Important: the dataset is synthetic. Cost estimates are based on modelling assumptions, not a trained ML cost predictor or verified real-world valuations.'
+    overview: 'An interactive decision-support platform connecting a reproducible data ingestion pipeline, a structured property and asset model, read-only FastAPI endpoints and a responsive dashboard. It explores which fictional public buildings may warrant attention and how alternative retrofit budgets affect a potential investment shortlist.',
+    challenge: 'Property portfolio decisions depend on incomplete records, inconsistent inspections and uncertain cost assumptions. A useful screening application must make evidence, missing assessments and trade-offs visible instead of presenting modelled forecasts as established facts.',
+    actions: [
+      'Developed a Python ingestion and validation pipeline with reproducible synthetic data, data-quality checks and a relational property and component model.',
+      'Implemented FastAPI analytics, property search and detail endpoints with validated filters, read-only queries and parameterized SQL.',
+      'Built a responsive frontend for portfolio KPIs, energy-rating distributions, property exploration and asset-level assessment details.',
+      'Implemented an assumption-driven 2027–2030 investment roadmap with annual funding limits and prioritised intervention scenarios.',
+      'Added supported natural-language questions that return query-plan and SQL evidence; optional LLM interpretation is separate from the default rules-based planner.'
+    ],
+    result: 'A reproducible interactive demonstration covering 5,975 validated synthetic properties and 23,811 modelled components, with evidence-backed analysis and scenario-planning views.',
+    technologies: ['Python', 'FastAPI', 'SQL / SQLite', 'Docker', 'Data validation', 'REST APIs', 'Scenario modelling', 'Frontend JavaScript'],
+    stats: [{value:'5,975',label:'Synthetic properties'},{value:'23,811',label:'Modelled components'},{value:'2027–30',label:'Investment roadmap'}],
+    note:'This is a portfolio demonstration using fictional generated buildings. Retrofit costs, savings, priorities and investment scenarios are modelling assumptions, not verified forecasts or professional valuations.'
   },
   {
     id: 'body-composition', order: '04', category: 'apps', categoryLabel: 'MOBILE / DATA', year: '2026', phase: 'Android app · In development',
@@ -101,12 +113,67 @@ const visuals = {
   climate: () => `<div class="mock-climate"><div class="climate-top"><span>CO₂ / PREDICTION MODEL</span><span>● MODEL COMPARISON</span></div><div class="climate-chart"><svg viewBox="0 0 450 150" preserveAspectRatio="none" aria-hidden="true"><g stroke="#45685c" stroke-width="1" opacity=".6"><path d="M0 25H450M0 55H450M0 85H450M0 115H450M0 145H450"/></g><path d="M0 102 Q30 68 62 87 T130 70 T200 91 T273 55 T340 65 T450 18" fill="none" stroke="#bcf1a8" stroke-width="3"/><path d="M0 117 Q30 77 62 96 T130 87 T200 105 T273 71 T340 78 T450 31" fill="none" stroke="#86addb" stroke-width="2" stroke-dasharray="5 5"/><circle cx="450" cy="18" r="5" fill="#d5ffab"/></svg></div><div class="climate-foot"><span>ACTUAL VS MODELLED / CONCEPT GRAPH</span><span>R² · MSE</span></div><div class="climate-tag">MODELLED SCENARIOS</div></div>`
 };
 
+// The Energy case study uses genuine app screenshots stored in its public source repository.
+function renderScreenshotCard(p) {
+  const first = p.screenshots[0];
+  return `<div class="energy-card-media" data-card-gallery>
+    <img class="energy-card-image" src="${first.url}" alt="${p.title}: ${first.title}" loading="lazy" decoding="async" />
+    <div class="energy-card-caption"><span>ACTUAL APPLICATION PREVIEW</span><strong data-card-gallery-title>${first.title}</strong></div>
+    <div class="energy-card-controls" role="group" aria-label="Energy project screenshots">
+      ${p.screenshots.map((shot, i) => `<button type="button" data-energy-card-slide="${i}" aria-pressed="${i === 0}" aria-label="Show ${shot.title}" title="${shot.title}">${String(i + 1).padStart(2, '0')}</button>`).join('')}
+    </div>
+  </div>`;
+}
+
+function renderCaseGallery(p) {
+  if (!p.screenshots?.length) return '';
+  const first = p.screenshots[0];
+  return `<section class="case-gallery" data-case-gallery aria-label="Screenshots from the ${p.title} application">
+    <div class="case-gallery-heading"><h3>Inside the application</h3><span>REAL INTERFACE · SYNTHETIC DATA</span></div>
+    <a class="case-gallery-main" data-gallery-open href="${first.url}" target="_blank" rel="noopener noreferrer" aria-label="Open full-size screenshot: ${first.title}">
+      <img data-gallery-image src="${first.url}" alt="${first.title}" loading="lazy" decoding="async" />
+      <span>View full screenshot ↗</span>
+    </a>
+    <div class="case-gallery-details"><div><strong data-gallery-title>${first.title}</strong><p data-gallery-description>${first.description}</p></div>
+      <div class="case-gallery-nav"><button type="button" data-gallery-step="-1" aria-label="Previous screenshot">←</button><span data-gallery-counter>01 / 03</span><button type="button" data-gallery-step="1" aria-label="Next screenshot">→</button></div>
+    </div>
+    <div class="case-gallery-thumbs" role="group" aria-label="Choose an application screenshot">
+      ${p.screenshots.map((shot, i) => `<button type="button" class="case-gallery-thumb" data-gallery-index="${i}" aria-pressed="${i === 0}" aria-label="Show ${shot.title}"><img src="${shot.url}" alt="" loading="lazy" decoding="async"/><span>${shot.title}</span></button>`).join('')}
+    </div>
+  </section>`;
+}
+
+function bindCaseGallery(p) {
+  const gallery = modalContent.querySelector('[data-case-gallery]');
+  if (!gallery || !p.screenshots) return;
+  let index = 0;
+  const change = next => {
+    index = (next + p.screenshots.length) % p.screenshots.length;
+    const slide = p.screenshots[index];
+    const img = gallery.querySelector('[data-gallery-image]');
+    img.src = slide.url;
+    img.alt = slide.title;
+    gallery.querySelector('[data-gallery-title]').textContent = slide.title;
+    gallery.querySelector('[data-gallery-description]').textContent = slide.description;
+    gallery.querySelector('[data-gallery-open]').href = slide.url;
+    gallery.querySelector('[data-gallery-open]').setAttribute('aria-label', `Open full-size screenshot: ${slide.title}`);
+    gallery.querySelector('[data-gallery-counter]').textContent = `${String(index + 1).padStart(2, '0')} / ${String(p.screenshots.length).padStart(2, '0')}`;
+    gallery.querySelectorAll('[data-gallery-index]').forEach(btn => btn.setAttribute('aria-pressed', String(Number(btn.dataset.galleryIndex) === index)));
+  };
+  gallery.addEventListener('click', event => {
+    const thumb = event.target.closest('[data-gallery-index]');
+    const step = event.target.closest('[data-gallery-step]');
+    if (thumb) change(Number(thumb.dataset.galleryIndex));
+    else if (step) change(index + Number(step.dataset.galleryStep));
+  });
+}
+
 const projectGrid = document.getElementById('projectGrid');
 function renderProjects() {
   projectGrid.innerHTML = projects.map(p => `
     <article class="project-card reveal" data-category="${p.category}" data-project="${p.id}">
       <div class="project-visual" style="--visualbg:${p.visualBg}">
-        ${visuals[p.visual]()}
+        ${p.screenshots ? renderScreenshotCard(p) : visuals[p.visual]()}
       </div>
       <div class="project-content">
         <div class="project-meta"><span>${p.categoryLabel}</span><span class="meta-divider">/</span><span class="project-phase">${p.year} · ${p.phase}</span></div>
@@ -119,6 +186,22 @@ function renderProjects() {
     </article>`).join('');
   observeReveals();
 }
+
+// Card screenshot selectors only affect Energy Portfolio Intelligence.
+projectGrid.addEventListener('click', event => {
+  const btn = event.target.closest('[data-energy-card-slide]');
+  if (!btn) return;
+  const card = btn.closest('[data-project="energy-intelligence"]');
+  if (!card) return;
+  const index = Number(btn.dataset.energyCardSlide);
+  const shot = energyScreenshots[index];
+  if (!shot) return;
+  const img = card.querySelector('.energy-card-image');
+  img.src = shot.url;
+  img.alt = `Energy Portfolio Intelligence: ${shot.title}`;
+  card.querySelector('[data-card-gallery-title]').textContent = shot.title;
+  card.querySelectorAll('[data-energy-card-slide]').forEach(b => b.setAttribute('aria-pressed', String(Number(b.dataset.energyCardSlide) === index)));
+});
 
 // Project filters
 const filterButtons = [...document.querySelectorAll('.filter-chip')];
@@ -149,6 +232,7 @@ function openProject(id) {
     <h2 id="modalTitle">${p.title}</h2>
     <p class="modal-summary">${p.summary}</p>
     <div class="modal-stat-row">${p.stats.map(s=>`<div class="modal-stat"><strong>${s.value}</strong><small>${s.label}</small></div>`).join('')}</div>
+    ${renderCaseGallery(p)}
     <h3>Overview</h3><p>${p.overview}</p>
     <h3>The challenge</h3><p>${p.challenge}</p>
     <h3>What I built / worked on</h3><ul class="modal-points">${p.actions.map(a=>`<li>${a}</li>`).join('')}</ul>
@@ -156,6 +240,7 @@ function openProject(id) {
     <h3>Technologies & methods</h3><div class="modal-stack">${p.technologies.map(t=>`<span>${t}</span>`).join('')}</div>
     <div class="modal-note">${p.note}</div>
     <div class="modal-footer"><div class="modal-footer-links">${p.repoUrl ? `<a class="modal-github-link" href="${p.repoUrl}" target="_blank" rel="noopener noreferrer">View source on GitHub ↗</a>` : ''}<a href="mailto:nikita_seiler@outlook.com?subject=${encodeURIComponent('Question about ' + p.title)}">Ask me about this project ↗</a></div><button type="button" data-close-modal>← Back to projects</button></div>`;
+  bindCaseGallery(p);
   modal.hidden = false;
   document.body.classList.add('modal-open');
   panel.scrollTop = 0;
