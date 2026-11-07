@@ -119,7 +119,6 @@ function renderScreenshotCard(p) {
   const next = p.screenshots[1] || first;
   return `<div class="energy-card-media" data-card-gallery data-card-index="0">
     <img class="energy-card-image" src="${first.url}" alt="${p.title}: ${first.title}" loading="lazy" decoding="async" />
-    <div class="energy-card-caption"><span>ACTUAL APPLICATION PREVIEW</span><strong data-card-gallery-title>${first.title}</strong></div>
     <div class="energy-card-controls">
       <button type="button" class="energy-card-next" data-energy-card-next aria-label="Show next screenshot: ${next.title}" title="Next screenshot">
         <span aria-hidden="true">→</span>
@@ -203,7 +202,6 @@ projectGrid.addEventListener('click', event => {
   const img = card.querySelector('.energy-card-image');
   img.src = shot.url;
   img.alt = `Energy Portfolio Intelligence: ${shot.title}`;
-  card.querySelector('[data-card-gallery-title]').textContent = shot.title;
   gallery.dataset.cardIndex = String(index);
   const upcoming = energyScreenshots[(index + 1) % energyScreenshots.length];
   nextButton.setAttribute('aria-label', `Show next screenshot: ${upcoming.title}`);
